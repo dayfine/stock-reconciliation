@@ -1,27 +1,35 @@
-DEBITS = set('DEPOSIT', 'BUY')
-CREDITS = set('FEE', 'SELL')
+import copy
+
+
+DEBITS = set(['DEPOSIT', 'BUY'])
+CREDITS = set(['FEE', 'SELL', 'DIVIDEND'])
+CASH = 'Cash'
+
 
 def process_trns(beg_pos, transactions):
     """ Apply each transaction to a deepcopy of the portoflio """
     end_pos = copy.deepcopy(beg_pos)
 
-    for trans in transactions:
-        symbol, trans_type, num_contracts, amount = trans.split(' ')
-
+    for symbol, trans_type, num_contracts, amount in transactions:
         # m for multiplier
-        m = 1 if trans_type in DEBITS else -1 if trans in CREDITS else 0
+        m = 1 if trans_type in DEBITS else -1
 
-        if symbol == 'Cash':
-            end_pos['Cash'] = end_pos.get('Cash', 0) + m * amount
-        else:
-            end_pos[symbol] = end_pos.get(symbol, 0) + m * num_contracts
-            end_pos['Cash'] = end_pos.get('Cash', 0) - m * amount
+        if symbol != CASH:
+            end_pos[symbol] = end_pos.get(symbol, 0) + m * float(num_contracts)
+            m *= -1
+        end_pos[CASH] = end_pos.get(CASH, 0) + m * float(amount)
 
     return end_pos
 
-def reconcile_pos(reported):
-    beg_pos, end_pos = dictify(reported.beg_pos), dictify(reported.end_pos)
-    calculated_end_pos = process(beg_pos, reported.transactions)
 
-    # draw diff
-    return { }
+def dict_diff(calculated, compareTo):
+    """ Modify calculated dict in place for reported valus """
+    for symbol in compareTo:
+        calculated[symbol] = calculated.get(symbol, 0) - compareTo[symbol]
+    return calculated
+
+
+def reconcile_pos(report):
+    calculated_end_pos = process_trns(report.beg_pos, report.transactions)
+
+    return dict_diff(rcalculated_end_pos, eport.end_pos)
