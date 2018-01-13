@@ -26,10 +26,13 @@ def dict_diff(calculated, compareTo):
     """ Modify calculated dict in place for reported valus """
     for symbol in compareTo:
         calculated[symbol] = calculated.get(symbol, 0) - compareTo[symbol]
+        if calculated[symbol] == 0:
+            del calculated[symbol]
     return calculated
 
 
 def reconcile_pos(report):
+    """ Reconcile the passed-in instance of Report object """
     calculated_end_pos = process_trns(report.beg_pos, report.transactions)
 
     return dict_diff(rcalculated_end_pos, eport.end_pos)
