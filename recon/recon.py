@@ -1,6 +1,5 @@
 import copy
 
-
 DEBITS = set(['DEPOSIT', 'BUY'])
 CREDITS = set(['FEE', 'SELL', 'DIVIDEND'])
 CASH = 'Cash'
@@ -15,23 +14,25 @@ def process_trns(beg_pos, transactions):
         m = 1 if trans_type in DEBITS else -1
 
         if symbol != CASH:
-            end_pos[symbol] = end_pos.get(symbol, 0) + m * float(num_contracts)
+            end_pos[symbol] = end_pos.get(symbol, 0) + m * num_contracts
             m *= -1
-        end_pos[CASH] = end_pos.get(CASH, 0) + m * float(amount)
+        end_pos[CASH] = end_pos.get(CASH, 0) + m * amount
 
     return end_pos
 
 
-def dict_diff(calculated, compareTo):
-    """ Modify calculated dict in place for reported valus """
-    for symbol in compareTo:
-        calculated[symbol] = calculated.get(symbol, 0) - compareTo[symbol]
+def dict_diff(dict1, dict2):
+    """ Modify dict1 in place for reported valus in dict2 """
+    fullList = set(list(dict1)+list(dict2))
 
-    for symbol in list(calculated):
-        if calculated[symbol] == 0:
-            del calculated[symbol]
+    for symbol in fullList:
+        dict1[symbol] = dict2.get(symbol, 0) - dict1.get(symbol, 0)
 
-    return calculated
+    for symbol in fullList:
+        if dict1[symbol] == 0:
+            del dict1[symbol]
+
+    return dict1
 
 
 def reconcile_pos(report):
