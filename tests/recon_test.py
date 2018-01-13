@@ -1,4 +1,5 @@
 import os
+import asyncio
 
 from recon.recon import process_trns, dict_diff, reconcile_pos
 from recon.report_reader import Report
@@ -32,11 +33,13 @@ class TestRecon():
 
 
     def test_simpler_recons(self):
-        report = Report()
-        print()
-        report.read_file('test1')
-        print(reconcile_pos(report))
+        TEST1 = os.path.join(os.path.dirname(__file__), 'test1.txt')
+        report5 = Report()
+        report5.read_file(TEST1)
+
+        result5 = {'Cash': 8000, 'GOOG': 10, 'TD': -100, 'MSFT': 10}
+        assert reconcile_pos(report5) == result5
 
 
-    def test_simple_recons(self):
+    def test_random_recons(self):
         pass

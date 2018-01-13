@@ -18,14 +18,14 @@ class Report():
             for line in file:
                 l = line.strip()
 
-                if line == ST_POS0:
+                if l == ST_POS0:
                     self._state = ST_POS0
-                elif line == ST_TRNS:
+                elif l == ST_TRNS:
                     self._state = ST_TRNS
-                elif line == ST_POS0:
-                    self._state = ST_POS0
+                elif l == ST_POS1:
+                    self._state = ST_POS1
                 else:
-                    self._parse_line(line)
+                    self._parse_line(l)
 
     def _parse_line(self, line):
         if not line:
