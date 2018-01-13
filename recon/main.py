@@ -1,6 +1,9 @@
+import asyncio
+
 from helpers import dictify
 from recon import process_trns, reconcile_pos
 from sys import argv
+
 script, filename = argv
 
 #with open

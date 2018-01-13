@@ -1,4 +1,5 @@
 from recon.recon import process_trns, dict_diff, reconcile_pos
+from recon.report_reader import Report
 
 BEG_POS = {
     'AAPL': 15,
@@ -24,8 +25,23 @@ T1 = [
     ['TD', 'BUY', 100, 10000],
 ]
 
-# class TestRecon():
-    # def test_recon(self):
-    #     report1 = {}
-    #     result1 = {}
-    #     assert reconcile_pos(report1) == result1
+class TestRecon():
+    def test_simple_recons(self):
+
+        report1 = Report(beg_pos={'AAPL': 100},
+                         transactions=[['AAPL', 'SELL', 100, 3000]],
+                         end_pos={'Cash': 3000})
+        result1 = {}
+        assert reconcile_pos(report1) == result1
+
+        report2 = Report(beg_pos={'AAPL': 100},
+                         transactions=[['AAPL', 'SELL', 100, 3000]],
+                         end_pos={'Cash': 2999})
+        result2 = {'Cash': 1}
+        assert reconcile_pos(report2) == result2
+
+        report3 = Report(beg_pos={'AAPL': 100},
+                         transactions=[['AAPL', 'SELL', 200, 6000]],
+                         end_pos={'Cash': 6000})
+        result3 = {'AAPL': -100}
+        assert reconcile_pos(report3) == result3
