@@ -1,6 +1,5 @@
 from recon.report_reader import Report
 
-from os import walk
 
 class TestReportReader():
 

@@ -7,9 +7,16 @@ ST_POS1 = 'D1-POS'
 
 
 class Report():
-    def __init__(self, beg_pos={}, transactions=[], end_pos={}):
+    def __init__(self, beg_pos=None, transactions=None, end_pos=None):
         """ Initiate a txt reader that constructs a report object """
         self._state = None
+
+        if beg_pos is None:
+            beg_pos = {}
+        if transactions is None:
+            transactions = []
+        if end_pos is None:
+            end_pos = {}
 
         self.beg_pos = beg_pos
         self.transactions = transactions
@@ -32,6 +39,7 @@ class Report():
                     self._state = ST_POS1
                 else:
                     self._parse_line(l)
+            self._state = None
 
     def _parse_line(self, line):
         if not line:

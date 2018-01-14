@@ -30,7 +30,7 @@ def _process_trns(beg_pos, transactions):
 
 
 def _dict_diff(dict1, dict2):
-    """ Modify dict1 in place for reported valus in dict2 """
+    """ Modify dict1 in place for reported values in dict2 """
     fullList = set(list(dict1)+list(dict2))
 
     for symbol in fullList:

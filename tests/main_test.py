@@ -47,10 +47,10 @@ class TestMain():
         #Simple test 2 using text file input
         TEST2 = os.path.join(os.path.dirname(__file__), 'test2.txt')
         report6 = Report()
-        report6.read_file(TEST1)
+        report6.read_file(TEST2)
 
-        result6 = {'ABX': 1, 'TLT': 1, 'UA': -2, 'X': -2001, 'Cash': 6}
-        # assert report6.reconcile() == result6
+        result6 = {'ABX': 1, 'TLT': 1, 'UA': -2, 'X': -2001, 'Cash': -994}
+        assert report6.reconcile() == result6
 
 
     def test_random(self):
