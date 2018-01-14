@@ -1,3 +1,6 @@
+from .recon import reconcile_pos
+
+
 ST_POS0 = 'D0-POS'
 ST_TRNS = 'D1-TRN'
 ST_POS1 = 'D1-POS'
@@ -11,6 +14,9 @@ class Report():
         self.beg_pos = beg_pos
         self.transactions = transactions
         self.end_pos = end_pos
+
+    def reconcile(self):
+        return reconcile_pos(self)
 
     def read_file(self, filename):
         """ Reading text file line by line """

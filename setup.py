@@ -5,12 +5,8 @@
 import os
 import sys
 
-from io import open
-
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
-
-NAME = 'Stock Reconciliaton'
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -24,7 +20,7 @@ requires = []
 
 test_requirements = ['pytest>=2.8.0']
 
-with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = '\n' + f.read()
 
 about = {}
@@ -33,7 +29,7 @@ with open(os.path.join(here, NAME, '__version__.py')) as f:
 
 
 setup(
-    name=NAME,
+    name='Stock Reconciliaton',
     description=about['__description__'],
     long_description=long_description,
     author=about['__author__'],

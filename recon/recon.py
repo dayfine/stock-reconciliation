@@ -1,11 +1,19 @@
 import copy
 
+
 DEBITS = set(['DEPOSIT', 'BUY'])
 CREDITS = set(['FEE', 'SELL', 'DIVIDEND'])
 CASH = 'Cash'
 
 
-def process_trns(beg_pos, transactions):
+def reconcile_pos(report):
+    """ Reconcile the passed-in instance of Report object """
+    calculated_end_pos = _process_trns(report.beg_pos, report.transactions)
+
+    return _dict_diff(calculated_end_pos, report.end_pos)
+
+
+def _process_trns(beg_pos, transactions):
     """ Apply each transaction to a deepcopy of the portoflio """
     end_pos = copy.deepcopy(beg_pos)
 
@@ -21,7 +29,7 @@ def process_trns(beg_pos, transactions):
     return end_pos
 
 
-def dict_diff(dict1, dict2):
+def _dict_diff(dict1, dict2):
     """ Modify dict1 in place for reported valus in dict2 """
     fullList = set(list(dict1)+list(dict2))
 
@@ -35,8 +43,4 @@ def dict_diff(dict1, dict2):
     return dict1
 
 
-def reconcile_pos(report):
-    """ Reconcile the passed-in instance of Report object """
-    calculated_end_pos = process_trns(report.beg_pos, report.transactions)
 
-    return dict_diff(calculated_end_pos, report.end_pos)
