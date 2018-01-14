@@ -1,7 +1,7 @@
 import os
 import asyncio
 
-from recon.recon import _process_trns, _dict_diff
+from recon.recon_utils import _process_trns, _dict_diff
 
 
 class TestRecon():
