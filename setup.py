@@ -28,8 +28,8 @@ setup(
     packages=[],
     install_requires=[],
     include_package_data=True,
-    cmdclass={
-        'test': PyTest,
-    },
+    # cmdclass={
+    #     'test': PyTest,
+    # },
     tests_require=test_requirements,
 )
