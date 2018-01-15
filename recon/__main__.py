@@ -3,8 +3,7 @@ Main Program to be run in CLI via
 `python3  -m recon yourfile.txt`
 """
 
-from os.path import join, dirname
-from pathlib import Path
+from os.path import exists, join, dirname
 
 from sys import argv
 from .report_reader import Report
@@ -14,7 +13,7 @@ script, filename = argv
 
 # Check if it's absolute path
 # If not, points to this module's root directory
-if not Path(filename).exists:
+if not exists(filename):
     filename = join(dirname(dirname(__file__)), filename)
 report = Report()
 report.read_file(filename)

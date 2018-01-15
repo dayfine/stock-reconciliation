@@ -11,6 +11,8 @@ git clone https://github.com/dayfine/stock-reconciliation.git
 
 
 ## To Use
+- Note: the program was written and tested in Python3. A minimum test has been performed with Python2 as well. To use with Python2, simply remove the 3 from all the commands below.
+
 ```bash
 $ python3 -m recon filename
 ```
